@@ -1,0 +1,16 @@
+{
+  "name": "yazid-trello-like",
+  "version": "1.0.0",
+  "description": "Trello-like test application using Web Components",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run json-init-server",
+    "json-init-server": "json-server --watch db.json --port 1234"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "json-server": "^0.15.1"
+  }
+}
