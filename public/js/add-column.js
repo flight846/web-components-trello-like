@@ -67,14 +67,13 @@ class AddColumn extends HTMLElement {
         this.$form = this.shadowRoot.querySelector('form');
         this.$input = this.shadowRoot.querySelector('input');
         this.$form.addEventListener('submit', e => {
-        e.preventDefault();
+            e.preventDefault();
 
-        if (!this.$input.value) return;
-        // TODO: check unicity of title here ?
-        this.dispatchEvent(
-            new CustomEvent('addColumn', { detail: { title: this.$input.value } })
-        );
-        this.$input.value = '';
+            if (!this.$input.value) return;
+            this.dispatchEvent(
+                new CustomEvent('addColumn', { detail: { title: this.$input.value } })
+            );
+            this.$input.value = '';
         });
     }
 }
