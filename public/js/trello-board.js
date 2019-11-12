@@ -1,5 +1,6 @@
 import { API } from './apiService.js';
 import './trello-column.js';
+import './add-column.js'
 
 const template = document.createElement('template');
 template.innerHTML = `
@@ -26,7 +27,7 @@ template.innerHTML = `
     </style>
     <div class="trello-board-wrapper">
         <div class="trello-column-wrapper"></div>
-        <trello-add-column></trello-add-column>
+        <add-column></add-column>
     </div>
 `
 class TrelloBoard extends HTMLElement {
@@ -35,10 +36,10 @@ class TrelloBoard extends HTMLElement {
         this._shadowRoot = this.attachShadow({ 'mode': 'open' });
         this._shadowRoot.appendChild(template.content.cloneNode(true));
 
-        // this.$columnCreator = this.querySelector('trello-add-column');
         this.$columnsContainer = this.shadowRoot.querySelector('.trello-column-wrapper');
+        this.$columnCreator = this.shadowRoot.querySelector('add-column');
 
-        // this.$columnCreator.addEventListener('addColumn', this.addColumn.bind(this));
+        this.$columnCreator.addEventListener('addColumn', this.addColumn.bind(this));
     
         // initial state
         this._columns = [];
@@ -51,6 +52,16 @@ class TrelloBoard extends HTMLElement {
         const columns = await API.get.columns();
     
         this._columns = columns;
+        this._render();
+    }
+
+    async addColumn(e) {
+        const { title } = e.detail;
+    
+        const data = await API.create.column({ title });
+    
+        this._columns.push(data);
+    
         this._render();
     }
     
